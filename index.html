@@ -727,6 +727,12 @@ main .home{grid-template-areas:"hh hh" "lead pst" "cd pst" "meet pst" "cta pst"!
 .irow.key .itime{color:#ffd98a!important;font-size:17px!important}
 .irow.key .ititle b{font-size:16px!important;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
 @media (max-width:720px){.irow.key .itime{font-size:14.5px!important}.irow.key .ititle b{font-size:14.5px!important}}
+
+/* v57: distinct colour for the 05:30 hotel departure */
+.irow.key{background:linear-gradient(90deg,rgba(217,181,106,.22),rgba(217,181,106,.06))!important;box-shadow:inset 3px 0 0 #f0c76a,0 0 0 1px rgba(240,199,106,.35)!important}
+.irow.key .itime{background:linear-gradient(135deg,#f6d98c,#d9b56a);color:#3d2400!important;border-radius:10px;padding:5px 0;text-align:center;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.irow.key .ititle b{color:#ffe3a1!important}
+.irow:not(.key) .ititle:only-child{padding:2px 0}
 </style></head>
 <body><div class="bg" aria-hidden="true"></div><div class="bg-veil" aria-hidden="true"></div>
 <header class="top"><div class="wrap"><nav class="glass nav" aria-label="Menu"><a class="logo" href="#welcome" aria-label="CIMB Niaga"><img id="logo" alt="CIMB Niaga"></a><div class="seg lang" role="group" aria-label="Language"><button class="lbtn" id="langbtn" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="lflag" id="langflag"></span><span id="langcur">EN</span><i aria-hidden="true">▾</i></button><div class="lmenu" id="langmenu" role="listbox" hidden><button type="button" role="option" data-l="en"><span class="lflag" data-f="us"></span>EN</button><button type="button" role="option" data-l="id"><span class="lflag" data-f="id"></span>ID</button><button type="button" role="option" data-l="zh"><span class="lflag" data-f="cn"></span>中文</button></div></div><button class="themebtn" id="theme" aria-label="Theme">◐</button><div class="lw"><button class="larr l" aria-label="Previous">‹</button><div class="links" id="links"></div><button class="larr r" aria-label="Next">›</button></div></nav></div></header>
@@ -873,14 +879,14 @@ items:[
 {id:'d5',tab:L('Hari 5','Day 5','第5天'),date:L('27 Nov','27 Nov','11月27日'),title:L('Perjalanan Pulang Chengdu → Jakarta','Homeward Journey Chengdu → Jakarta','返程：成都 → 雅加达'),dateFull:dl('fri',27),note:L('Seluruh jam adalah waktu setempat','All times are local','所列时间均为当地时间'),
  src:'Singapore Airlines • Chinathreads.co',
 items:[
-{id:'d5m',time:'05:00',icon:'⏰',name:L('Morning Call','Morning Call','叫醒服务'),img:'h_room',plan:L('**Morning call pukul 05:00.**','**Morning call at 05:00.**','**05:00 叫醒服务。**')},
-{id:'d5p',time:'05:30–06:00',icon:'🧳',name:L('Persiapan Check-out','Check-out Preparation','准备退房'),img:'d5_reception',plan:L('Kemasi barang dan **selesaikan check-out pukul 05:30–06:00**.','Pack up and **complete check-out between 05:30 and 06:00**.','收拾行李，并在**05:30–06:00 办理好退房**。')},
-{id:'d5d',key:true,time:'06:15',icon:'🚌',name:L('BERANGKAT DARI HOTEL KE BANDARA CHENGDU','DEPART FROM HOTEL TO CHENGDU AIRPORT','从酒店出发前往成都机场'),img:'d5_bus',plan:L('**Berangkat dari hotel pukul 06:15** menuju Bandara Internasional Chengdu Tianfu.','**Depart from the hotel at 06:15** for Chengdu Tianfu International Airport.','**06:15 从酒店出发**，前往成都天府国际机场。')},
-{id:'d5b',time:'10:00',icon:'🛫',name:L('Lepas landas dari Chengdu • SQ847','Take off from Chengdu • SQ847','成都起飞 • SQ847'),img:'d5_depart',plan:L('Singapore Airlines dari Terminal 1 (TFU → SIN).','Singapore Airlines from Terminal 1 (TFU → SIN).','乘坐新加坡航空，从 T1 航站楼起飞（TFU → SIN）。'),
+{id:'d5m',time:'04:00',icon:'⏰',name:L('Morning Call','Morning Call','叫醒服务'),img:'h_room'},
+{id:'d5p',time:'04:00–05:30',icon:'🧳',name:L('Persiapan Check-out','Check-out Preparation','准备退房'),img:'d5_reception'},
+{id:'d5h',key:true,time:'05:30',icon:'🚌',name:L('BERANGKAT DARI HOTEL KE BANDARA CHENGDU','DEPART FROM HOTEL TO CHENGDU AIRPORT','从酒店出发前往成都机场'),img:'d5_bus'},
+{id:'d5b',time:'10:00',icon:'🛫',name:L('Lepas landas dari Chengdu • SQ847','Take off from Chengdu • SQ847','成都起飞 • SQ847'),img:'d5_depart',dur:L('Durasi penerbangan: **5 jam 10 menit** (sudah memperhitungkan perbedaan zona waktu)','Flight duration: **5h 10m** (time-zone difference included)','飞行时间：**5小时10分钟**（已计入时差）'),plan:L('Singapore Airlines dari Terminal 1 (TFU → SIN).','Singapore Airlines from Terminal 1 (TFU → SIN).','乘坐新加坡航空，从 T1 航站楼起飞（TFU → SIN）。'),
  tip:L('Aturan power bank, batas cairan 100 ml, dan larangan vape ada di tab Penerbangan.','Power-bank rules, the 100 ml liquid limit and the vape ban are in the Flight tab.','充电宝规定、100毫升液体限制和电子烟禁令请见“航班”页。')},
 {id:'d5c',time:'15:10',icon:'⏳',name:L('Tiba di Singapura','Arrive in Singapore','抵达新加坡'),img:'d5_changi',plan:L('Transit di Bandara Changi selama 2 jam 10 menit.','Transit at Changi Airport for 2 hours 10 minutes.','在樟宜机场转机，停留2小时10分钟。'),
  tip:L('Changi Transit e-Voucher (hingga SGD 20) harus diklaim sebelum berangkat—detail di tab Penerbangan.','The Changi Transit e-Voucher (up to SGD 20) must be claimed before departure—details in the Flight tab.','樟宜转机电子优惠券（最高20新元）需在出发前申领——详情请见“航班”页。')},
-{id:'d5d',time:'17:20',icon:'🛫',name:L('Lepas landas dari Singapura • SQ964','Take off from Singapore • SQ964','新加坡起飞 • SQ964'),img:'d5_changi',plan:L('Singapore Airlines dari Bandara Changi, Terminal 2.','Singapore Airlines from Changi Airport, Terminal 2.','乘坐新加坡航空，从樟宜机场 T2 航站楼起飞。')},
+{id:'d5d',time:'17:20',icon:'🛫',name:L('Lepas landas dari Singapura • SQ964','Take off from Singapore • SQ964','新加坡起飞 • SQ964'),img:'d5_changi',dur:L('Durasi penerbangan: **1 jam 50 menit** (sudah memperhitungkan perbedaan zona waktu)','Flight duration: **1h 50m** (time-zone difference included)','飞行时间：**1小时50分钟**（已计入时差）'),plan:L('Singapore Airlines dari Bandara Changi, Terminal 2.','Singapore Airlines from Changi Airport, Terminal 2.','乘坐新加坡航空，从樟宜机场 T2 航站楼起飞。')},
 {id:'d5e',time:'18:10',icon:'🏠',name:L('Tiba di Jakarta','Arrive in Jakarta','抵达雅加达'),img:'d5_cgk',plan:L('Selamat datang kembali. Tiba di Bandara Internasional Soekarno–Hatta, Terminal 3.','Welcome home. Arrival at Soekarno–Hatta International Airport, Terminal 3.','欢迎回家。抵达苏加诺—哈达国际机场 T3 航站楼。')}
 ]}
 ];
@@ -1075,8 +1081,9 @@ const bnrF=(em,title,sub,img,chips)=>`<div class="glass bnr bnrf"><div class="bt
 const bnr=(em,title,sub,img,chips)=>`<div class="glass bnr"><div class="bt"><h2>${em} ${t(title)}</h2>${sub?`<p>${t(sub)}</p>`:''}${chips||''}</div><div class="bi">${im(img,'')}</div></div>`;
 function irow(it){
  const o=open.has(it.id);const nm=t(it.name);
- const inner=`${it.plan?`<p class="iplan">🕘 ${rich(t(it.plan))}</p>`:''}${it.facts?`<ul class="ifacts">${it.facts.map(f=>`<li>${t(f)}</li>`).join('')}</ul>`:''}${it.tip?`<p class="itip">💡 ${t(it.tip)}</p>`:''}${srcList(it.src)}`;
- return `<div class="irow${o?' open':''}${it.key?' key':''}" data-id="${it.id}"><span class="itime">${t(it.time).split('–').join('–<br>')}</span><div class="ititle"><b>${it.icon?it.icon+' ':''}${nm}</b>${moreBtn(it.id,o)}</div><button class="ithumb" data-lb="${it.img}" aria-label="${nm}">${im(it.img,nm)}</button><div class="more" id="m-${it.id}"><div class="more-in"><div>${inner}</div></div></div></div>`}
+ const has=!!(it.plan||it.facts||it.tip||it.dur||it.src);
+ const inner=`${it.plan?`<p class="iplan">🕘 ${rich(t(it.plan))}</p>`:''}${it.dur?`<p class="iplan">⏱ ${rich(t(it.dur))}</p>`:''}${it.facts?`<ul class="ifacts">${it.facts.map(f=>`<li>${t(f)}</li>`).join('')}</ul>`:''}${it.tip?`<p class="itip">💡 ${t(it.tip)}</p>`:''}${srcList(it.src)}`;
+ return `<div class="irow${o?' open':''}${it.key?' key':''}" data-id="${it.id}"><span class="itime">${t(it.time).split('–').join('–<br>')}</span><div class="ititle"><b>${it.icon?it.icon+' ':''}${nm}</b>${has?moreBtn(it.id,o):''}</div><button class="ithumb" data-lb="${it.img}" aria-label="${nm}">${im(it.img,nm)}</button>${has?`<div class="more" id="m-${it.id}"><div class="more-in"><div>${inner}</div></div></div>`:''}</div>`}
 function renderNav(){
  $('#links').innerHTML=TABS.map(i=>`<a href="#${i}" data-sec="${i}">${NAVE[i]} ${t(U.nav[i])}</a>`).join('');
  document.querySelectorAll('.lmenu button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.l===lang);b.setAttribute('aria-selected',b.dataset.l===lang)});const lc=$('#langcur');if(lc)lc.textContent={en:'EN',id:'ID',zh:'中文'}[lang];document.querySelectorAll('[data-f]').forEach(e=>{e.innerHTML=LFLAG[e.dataset.f]});const lf=$('#langflag');if(lf)lf.innerHTML=LFLAG[{en:'us',id:'id',zh:'cn'}[lang]];
