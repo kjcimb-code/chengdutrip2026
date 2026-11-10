@@ -733,6 +733,11 @@ main .home{grid-template-areas:"hh hh" "lead pst" "cd pst" "meet pst" "cta pst"!
 .irow.key .itime{background:linear-gradient(135deg,#f6d98c,#d9b56a);color:#3d2400!important;border-radius:10px;padding:5px 0;text-align:center;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,.35)}
 .irow.key .ititle b{color:#ffe3a1!important}
 .irow:not(.key) .ititle:only-child{padding:2px 0}
+
+/* v58 subtitle under a row title */
+.isub{display:block;font-size:12.5px;font-weight:600;color:var(--ink2);margin-top:4px;line-height:1.35}
+.irow.key .isub{color:#ffe3a1;opacity:.92}
+@media (max-width:720px){.isub{font-size:12px}}
 </style></head>
 <body><div class="bg" aria-hidden="true"></div><div class="bg-veil" aria-hidden="true"></div>
 <header class="top"><div class="wrap"><nav class="glass nav" aria-label="Menu"><a class="logo" href="#welcome" aria-label="CIMB Niaga"><img id="logo" alt="CIMB Niaga"></a><div class="seg lang" role="group" aria-label="Language"><button class="lbtn" id="langbtn" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="lflag" id="langflag"></span><span id="langcur">EN</span><i aria-hidden="true">▾</i></button><div class="lmenu" id="langmenu" role="listbox" hidden><button type="button" role="option" data-l="en"><span class="lflag" data-f="us"></span>EN</button><button type="button" role="option" data-l="id"><span class="lflag" data-f="id"></span>ID</button><button type="button" role="option" data-l="zh"><span class="lflag" data-f="cn"></span>中文</button></div></div><button class="themebtn" id="theme" aria-label="Theme">◐</button><div class="lw"><button class="larr l" aria-label="Previous">‹</button><div class="links" id="links"></div><button class="larr r" aria-label="Next">›</button></div></nav></div></header>
@@ -876,12 +881,12 @@ items:[
  plan:L('Berangkat pukul 17:30. Mengenakan Hanfu adalah bagian dari pengalaman.','Depart at 17:30. Hanfu dress-up is part of the experience.','17:30 出发。换上汉服是体验的一部分。'),
  facts:[L('Santap malam Sichuan yang terinspirasi dari jamuan istana kekaisaran, diiringi musik, tari, dan pertunjukan imersif; berdandan Hanfu (busana tradisional etnis Han) menjadi bagian serunya.','A Sichuan dinner inspired by imperial banquet rituals, with music, dance and immersive performances; Hanfu (traditional Han clothing) dress-up is part of the fun.','受宫廷宴饮礼仪启发的川菜晚宴，伴有音乐、舞蹈与沉浸式演出；换上汉服（汉族传统服饰）是体验的乐趣之一。')]}
 ]},
-{id:'d5',tab:L('Hari 5','Day 5','第5天'),date:L('27 Nov','27 Nov','11月27日'),title:L('Perjalanan Pulang Chengdu → Jakarta','Homeward Journey Chengdu → Jakarta','返程：成都 → 雅加达'),dateFull:dl('fri',27),note:L('Seluruh jam adalah waktu setempat','All times are local','所列时间均为当地时间'),
+{id:'d5',tab:L('Hari 5','Day 5','第5天'),date:L('27 Nov','27 Nov','11月27日'),title:L('Kembali ke Jakarta','Return to Jakarta','返回雅加达'),dateFull:dl('fri',27),note:L('Seluruh jam adalah waktu setempat','All times are local','所列时间均为当地时间'),
  src:'Singapore Airlines • Chinathreads.co',
 items:[
 {id:'d5m',time:'04:00',icon:'⏰',name:L('Morning Call','Morning Call','叫醒服务'),img:'h_room'},
 {id:'d5p',time:'04:00–05:30',icon:'🧳',name:L('Persiapan Check-out','Check-out Preparation','准备退房'),img:'d5_reception'},
-{id:'d5h',key:true,time:'05:30',icon:'🚌',name:L('BERANGKAT DARI HOTEL KE BANDARA CHENGDU','DEPART FROM HOTEL TO CHENGDU AIRPORT','从酒店出发前往成都机场'),img:'d5_bus'},
+{id:'d5h',key:true,time:'05:30',icon:'🚌',name:L('BERANGKAT DARI HOTEL KE BANDARA CHENGDU','DEPART FROM HOTEL TO CHENGDU AIRPORT','从酒店出发前往成都机场'),sub:L('🍽️ Sarapan ringan akan disediakan di dalam bus','🍽️ Light breakfast will be provided on the bus','🍽️ 车上将提供简易早餐'),img:'d5_bus'},
 {id:'d5b',time:'10:00',icon:'🛫',name:L('Lepas landas dari Chengdu • SQ847','Take off from Chengdu • SQ847','成都起飞 • SQ847'),img:'d5_depart',dur:L('Durasi penerbangan: **5 jam 10 menit** (sudah memperhitungkan perbedaan zona waktu)','Flight duration: **5h 10m** (time-zone difference included)','飞行时间：**5小时10分钟**（已计入时差）'),plan:L('Singapore Airlines dari Terminal 1 (TFU → SIN).','Singapore Airlines from Terminal 1 (TFU → SIN).','乘坐新加坡航空，从 T1 航站楼起飞（TFU → SIN）。'),
  tip:L('Aturan power bank, batas cairan 100 ml, dan larangan vape ada di tab Penerbangan.','Power-bank rules, the 100 ml liquid limit and the vape ban are in the Flight tab.','充电宝规定、100毫升液体限制和电子烟禁令请见“航班”页。')},
 {id:'d5c',time:'15:10',icon:'⏳',name:L('Tiba di Singapura','Arrive in Singapore','抵达新加坡'),img:'d5_changi',plan:L('Transit di Bandara Changi selama 2 jam 10 menit.','Transit at Changi Airport for 2 hours 10 minutes.','在樟宜机场转机，停留2小时10分钟。'),
@@ -1083,7 +1088,7 @@ function irow(it){
  const o=open.has(it.id);const nm=t(it.name);
  const has=!!(it.plan||it.facts||it.tip||it.dur||it.src);
  const inner=`${it.plan?`<p class="iplan">🕘 ${rich(t(it.plan))}</p>`:''}${it.dur?`<p class="iplan">⏱ ${rich(t(it.dur))}</p>`:''}${it.facts?`<ul class="ifacts">${it.facts.map(f=>`<li>${t(f)}</li>`).join('')}</ul>`:''}${it.tip?`<p class="itip">💡 ${t(it.tip)}</p>`:''}${srcList(it.src)}`;
- return `<div class="irow${o?' open':''}${it.key?' key':''}" data-id="${it.id}"><span class="itime">${t(it.time).split('–').join('–<br>')}</span><div class="ititle"><b>${it.icon?it.icon+' ':''}${nm}</b>${has?moreBtn(it.id,o):''}</div><button class="ithumb" data-lb="${it.img}" aria-label="${nm}">${im(it.img,nm)}</button>${has?`<div class="more" id="m-${it.id}"><div class="more-in"><div>${inner}</div></div></div>`:''}</div>`}
+ return `<div class="irow${o?' open':''}${it.key?' key':''}" data-id="${it.id}"><span class="itime">${t(it.time).split('–').join('–<br>')}</span><div class="ititle"><b>${it.icon?it.icon+' ':''}${nm}</b>${it.sub?`<span class="isub">${t(it.sub)}</span>`:''}${has?moreBtn(it.id,o):''}</div><button class="ithumb" data-lb="${it.img}" aria-label="${nm}">${im(it.img,nm)}</button>${has?`<div class="more" id="m-${it.id}"><div class="more-in"><div>${inner}</div></div></div>`:''}</div>`}
 function renderNav(){
  $('#links').innerHTML=TABS.map(i=>`<a href="#${i}" data-sec="${i}">${NAVE[i]} ${t(U.nav[i])}</a>`).join('');
  document.querySelectorAll('.lmenu button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.l===lang);b.setAttribute('aria-selected',b.dataset.l===lang)});const lc=$('#langcur');if(lc)lc.textContent={en:'EN',id:'ID',zh:'中文'}[lang];document.querySelectorAll('[data-f]').forEach(e=>{e.innerHTML=LFLAG[e.dataset.f]});const lf=$('#langflag');if(lf)lf.innerHTML=LFLAG[{en:'us',id:'id',zh:'cn'}[lang]];
