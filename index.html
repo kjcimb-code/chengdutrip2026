@@ -205,7 +205,7 @@ dialog{border:0;padding:0;background:none;color:var(--ink);max-width:min(560px,9
 .irow.now{background:linear-gradient(90deg,rgba(231,166,44,.30),rgba(231,166,44,.06));border-left:4px solid var(--gold);border-radius:12px;padding-left:10px;margin:4px 0;box-shadow:inset 0 0 0 1px rgba(231,166,44,.35)}
 .irow.now .itime::after,.irow.next .itime::after{content:attr(data-tag);display:block;width:max-content;margin-top:4px;padding:2px 7px;border-radius:999px;font-size:9.5px;line-height:1.5;letter-spacing:.05em;text-transform:uppercase;font-weight:800;white-space:nowrap}
 .irow.now .itime::after{content:"● " attr(data-tag);background:var(--gold);color:#2a1500}
-.nin{display:inline-block;vertical-align:middle;margin:6px 0 0 10px;font-size:13px;font-weight:800;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}
+.mrow{display:flex;align-items:center;gap:10px;margin-top:6px}.mrow .more-btn{margin-top:0!important}.nin{display:inline-flex;align-items:center;line-height:1;margin:0;font-size:13px;font-weight:800;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}
 .irow.next .itime::after{border:1px solid var(--stroke);color:var(--ink2,inherit);background:var(--chip)}
 .livec{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--stroke);font-variant-numeric:tabular-nums}
 .langgo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:16px 20px;text-decoration:none;color:inherit;border-radius:22px}
@@ -215,6 +215,7 @@ dialog{border:0;padding:0;background:none;color:var(--ink);max-width:min(560px,9
 .cclock .cl-l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:800}
 .cclock #cck{font-family:var(--font-d);font-weight:800;font-size:clamp(28px,6vw,38px);line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .ccrow{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline}.ccrow #cact{font-weight:700;color:var(--gold)}.ccrow #cact[data-go]{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.isub.go,.dfoot.go{cursor:pointer}.isub.go{text-decoration:underline dotted;text-underline-offset:3px}.isub.go::after,.dfoot.go::after{content:" ›";font-weight:800}
 /* checklist */
 .check{padding:clamp(18px,3vw,30px);display:grid;grid-template-columns:.7fr 1.3fr;gap:24px}
 .check ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px}
@@ -1125,7 +1126,7 @@ function irow(it){
  const o=open.has(it.id);const nm=t(it.name);
  const has=!!(it.plan||it.facts||it.tip||it.dur||it.src);
  const inner=`${it.plan?`<p class="iplan">🕘 ${rich(t(it.plan))}</p>`:''}${it.dur?`<p class="iplan">⏱ ${rich(t(it.dur))}</p>`:''}${it.facts?`<ul class="ifacts">${it.facts.map(f=>`<li>${rich(t(f))}</li>`).join('')}</ul>`:''}${it.tip?`<p class="itip">💡 ${t(it.tip)}</p>`:''}${srcList(it.src)}`;
- return `<div class="irow${o?' open':''}${it.key?' key':''}" data-id="${it.id}"><span class="itime">${t(it.time).split('–').join('–<br>')}</span><div class="ititle"><b>${it.icon?it.icon+' ':''}${nm}</b>${it.sub?`<span class="isub">${t(it.sub)}</span>`:''}${has?moreBtn(it.id,o):''}</div><button class="ithumb" data-lb="${it.img}" aria-label="${nm}">${im(it.img,nm)}</button>${has?`<div class="more" id="m-${it.id}"><div class="more-in"><div>${inner}</div></div></div>`:''}</div>`}
+ return `<div class="irow${o?' open':''}${it.key?' key':''}" data-id="${it.id}"><span class="itime">${t(it.time).split('–').join('–<br>')}</span><div class="ititle"><b>${it.icon?it.icon+' ':''}${nm}</b>${it.sub?`<span class="isub${(/^🚌/.test(t(it.sub))||it.img==='d5_bus')?' go':''}"${(/^🚌/.test(t(it.sub))||it.img==='d5_bus')?' data-go="bus"':''}>${t(it.sub)}</span>`:''}${has?moreBtn(it.id,o):''}</div><button class="ithumb" data-lb="${it.img}" aria-label="${nm}">${im(it.img,nm)}</button>${has?`<div class="more" id="m-${it.id}"><div class="more-in"><div>${inner}</div></div></div>`:''}</div>`}
 
 const PH={sub:L('Kenangan perjalanan','Memories from the journey','旅途回忆'),
  t:L('Tiba di Bandara Chengdu Tianfu (TFU)','Arrive at Chengdu Tianfu (TFU) Airport','抵达成都天府国际机场（TFU）'),
@@ -1154,6 +1155,7 @@ function nudge(){
  setTimeout(()=>{L2.scrollTo({left:70,behavior:'smooth'});setTimeout(()=>L2.scrollTo({left:0,behavior:'smooth'}),900)},1200);
 }
 
+const CTL=L('Waktu Chengdu (UTC+8)','Chengdu Time (UTC+8)','成都时间（UTC+8）'),ENJ=L('Selamat menikmati Chengdu!','Enjoy Chengdu!','祝您在成都玩得开心！');
 const REST=L('Istirahat','Resting','休息中');
 function actTick(){
  const e=$('#cact');if(!e)return;
@@ -1168,8 +1170,8 @@ function clockTick(){const a=$('#cch');if(!a)return;const n=new Date(Date.now()+
 function tick(){
  try{markNow()}catch(e){}
  const el=$('#cd');if(!el)return;const now=Date.now(),start=Date.parse('2026-11-22T19:10:00+07:00'),end=Date.parse('2026-11-27T18:10:00+08:00');
- const msg=now<start?'':now<end?`<p class="count-msg">🎉 ${t(U.cdOn)}</p>`:`<p class="count-msg">🙏 ${t(U.cdDone)}</p>`;
- const sig=lang+'|'+(now<start?0:now<end?1:2);if(el.dataset.sig!==sig){el.dataset.sig=sig;el.innerHTML=`<div class="count" role="timer"><div><b id="cch">--</b><span>${t(U.h)}</span></div><div><b id="ccm">--</b><span>${t(U.m)}</span></div><div><b id="ccs">--</b><span>${t(NOWL.sec)}</span></div></div><p class="count-msg note ccrow"><span>🕒 ${t(NOWL.ct)}</span><span id="cact"></span></p>${msg}`}
+ const msg=now<start?'':now<end?`<p class="count-msg">🎉 ${t(ENJ)}</p>`:`<p class="count-msg">🙏 ${t(U.cdDone)}</p>`;
+ const sig=lang+'|'+(now<start?0:now<end?1:2);if(el.dataset.sig!==sig){el.dataset.sig=sig;el.innerHTML=`<p class="count-msg note ctl">🕒 ${t(CTL)}</p><div class="count" role="timer"><div><b id="cch">--</b><span>${t(U.h)}</span></div><div><b id="ccm">--</b><span>${t(U.m)}</span></div><div><b id="ccs">--</b><span>${t(NOWL.sec)}</span></div></div><p class="count-msg ccrow"><span id="cact"></span></p>${msg}`}
  clockTick();actTick();
 }
 const MEET_DESC='CIMB Niaga Treasury & Financial Institutions - Chengdu Appreciation Trip 2026. Meeting point at 15:00 WIB. Flight SQ965 Jakarta to Singapore departs 19:10 WIB.';
@@ -1195,8 +1197,8 @@ function renderItin(){
  const oldTabs=$('#itinerary .tabs');const sl=oldTabs?oldTabs.scrollLeft:null;
  const d=DAYS.find(x=>x.id===curDay);
  const tabs=`<div class="tabs" role="tablist">${DAYS.map(x=>`<button role="tab" data-day="${x.id}" aria-selected="${x.id===curDay}"><b>${DAYE[x.id]} ${t(x.tab)}</b><span>${t(x.date)}</span></button>`).join('')}</div>`;
- const head=`<div class="glass dayhead"><div><h3>${DAYE[d.id]} ${t(d.title)}</h3><span class="note">📅 ${t(d.dateFull)}</span>${d.note?` <span class="chip red">🕒 ${t(d.note)}</span>`:''}</div></div>`;
- const body=`<div class="glass ilist">${d.items.map(irow).join('')}</div>${d.foot?`<div class="glass dfoot">🚐 ${t(d.foot)}</div>`:''}`;
+ const head=`<div class="glass dayhead"><div><h3>${DAYE[d.id]} ${t(d.title)}</h3><span class="note">📅 ${t(d.dateFull).replace(" November 2026"," Nov").replace("2026年","")}</span>${d.note?` <span class="chip red">🕒 ${t(d.note)}</span>`:''}</div></div>`;
+ const body=`<div class="glass ilist">${d.items.map(irow).join('')}</div>${d.foot?`<div class="glass dfoot go" data-go="bus">🚐 ${t(d.foot)}</div>`:''}`;
  $('#itinerary').innerHTML=`${bnrF('🗓️',U.nav.itinerary,L('23–27 November 2026 • Chengdu','23–27 November 2026 • Chengdu','2026年11月23–27日 • 成都'),'ph_itin')}${tabs}${head}${body}<a class="glass lq langgo" href="#language"><span class="lgt">🗣️ ${t(LANGGO)}</span><span class="lga" aria-hidden="true">›</span></a><p class="src">${t(U.src)}: ${d.src}</p>`;
  const tb=$('#itinerary .tabs'),sel=tb&&tb.querySelector('[aria-selected="true"]');
  if(tb&&sel){if(sl!=null)tb.scrollLeft=sl;const l=sel.offsetLeft,r=l+sel.offsetWidth;if(l<tb.scrollLeft||r>tb.scrollLeft+tb.clientWidth)tb.scrollLeft=Math.max(0,l-(tb.clientWidth-sel.offsetWidth)/2)}
@@ -1207,11 +1209,11 @@ const LANGGO=L('Perlu bicara Mandarin?','Need to say something in Chinese?','需
 const NOWL={now:L('Sekarang','Now','现在'),next:L('Berikut','Next','接下来'),ct:L('Waktu Chengdu','Chengdu time','成都时间'),sec:L('detik','sec','秒')};
 
 let NXT=null;
-function fmtIn(h,m){return lang==='zh'?(h?h+'小时':'')+m+'分后':lang==='id'?(h?h+'j ':'')+m+'m lagi':'in '+(h?h+'h ':'')+m+'m'}
+function fmtIn(h,m){return lang==='zh'?(h?h+'小时':'')+m+'分钟后':lang==='id'?(h?h+' jam ':'')+m+' menit lagi':'in '+(h?h+' hr ':'')+m+' min'}
 function liveTick(){
  const sec=$('#itinerary');if(!sec||cur!=='itinerary')return;
  const n=new Date(Date.now()+8*3600*1000),p=x=>String(x).padStart(2,'0'),secs=n.getUTCHours()*3600+n.getUTCMinutes()*60+n.getUTCSeconds();
- const lc=sec.querySelector('.livec');if(lc)lc.textContent='🕒 '+t(NOWL.ct)+' '+p(n.getUTCHours())+':'+p(n.getUTCMinutes())+':'+p(n.getUTCSeconds());
+ const lc=sec.querySelector('.livec');if(lc)lc.textContent='🕒 '+p(n.getUTCHours())+':'+p(n.getUTCMinutes())+':'+p(n.getUTCSeconds());
  const tg=sec.querySelector('.irow.next .nin');
  if(tg&&NXT!=null){const r=NXT*60-secs;if(r<=0){markNow();return}tg.textContent='⏳ '+fmtIn(Math.floor(r/3600),Math.floor(r%3600/60))}
 }
@@ -1227,7 +1229,7 @@ function markNow(){
  rows.forEach((r,i)=>{const it=r.querySelector('.itime');
   if(i<c)r.classList.add('past');
   else if(i===c){r.classList.add('now');it.dataset.tag=t(NOWL.now)}
-  else if(i===c+1){r.classList.add('next');it.dataset.tag=t(NOWL.next);const tt=r.querySelector('.ititle');if(tt){const sp=document.createElement('span');sp.className='nin';tt.appendChild(sp)}}});
+  else if(i===c+1){r.classList.add('next');it.dataset.tag=t(NOWL.next);const tt=r.querySelector('.ititle'),bt=tt&&tt.querySelector('.more-btn');if(tt){const sp=document.createElement('span');sp.className='nin';if(bt){let w=bt.parentNode;if(!w.classList.contains('mrow')){w=document.createElement('div');w.className='mrow';bt.parentNode.insertBefore(w,bt);w.appendChild(bt)}w.appendChild(sp)}else tt.appendChild(sp)}}});
  NXT=c+1<st.length?st[c+1]:null;
  const h=sec.querySelector('.dayhead>div');
  if(h){const sp=document.createElement('span');sp.className='livec';h.appendChild(document.createTextNode(' '));h.appendChild(sp)}
@@ -1441,4 +1443,5 @@ st.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,sc
 document.addEventListener('click',e=>{const a=e.target.closest('#cact[data-go]');if(!a)return;const id=a.dataset.id,di=dateKey()-20261123;
  if(di>=0&&di<=4)curDay=DAYS[di].id;if(id)open.add(id);cur='welcome';go('itinerary');
  setTimeout(()=>{const r=id&&document.querySelector('#itinerary .irow[data-id="'+id+'"]');if(r)r.scrollIntoView({block:'center',behavior:'smooth'})},120)});
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go="bus"]');if(!g)return;e.stopPropagation();e.preventDefault();go('bus')},true);
 </script></body></html>
